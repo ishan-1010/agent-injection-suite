@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-injection-suite"
+version = "0.1.0"
+description = "Defensive prompt-injection resistance test suite for agentic LLMs"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Ishan Katoch" }]
+keywords = ["prompt-injection", "llm-security", "ai-safety", "evaluation", "security-testing", "agents"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+    "Topic :: Software Development :: Testing",
+    "Intended Audience :: Developers",
+]
+dependencies = [
+    "litellm>=1.40",
+    "pyyaml>=6.0",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+injection-suite = "injection_suite.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/ishan-1010/agent-injection-suite"
+Issues = "https://github.com/ishan-1010/agent-injection-suite/issues"
+
+[tool.setuptools]
+packages = ["injection_suite", "injection_suite.adapters"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

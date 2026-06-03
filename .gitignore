@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Tooling / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Generated reports (the CLI creates this dir on demand)
+reports/
+
+# Local env / secrets (never commit real keys)
+.env
+*.local
