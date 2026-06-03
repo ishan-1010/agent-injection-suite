@@ -230,6 +230,47 @@ re-runs vary — the committed JSON is this exact run.) Point the suite at your 
 
 ---
 
+## FAQ
+
+**Is 0% real, or is the tool just always reporting COMPLIED?**
+Real. Most verdicts fire on *actual tool calls* — e.g. the agent emailing the
+planted secret to an external address (transcript in [`benchmark/`](benchmark/)).
+Drop every text-match verdict and resistance still sits near zero. The raw
+per-run JSON is committed, so you can check.
+
+**Isn't this just the model obeying the user, not "injection"?**
+The strongest cases are *indirect* injection: the instruction arrives inside
+**file / web / tool content**, not from the operator — the real threat for
+agents. Direct cases separately test whether the agent enforces its own guardrails.
+
+**These are small models — what about GPT-4o / Claude?**
+Exactly: these are small local models (7B–14B) under a deliberately minimal
+scaffold. It is *not* a claim about frontier models, which are trained on
+instruction hierarchy and would likely resist more. Point the suite at yours.
+
+**Rule-based detection seems crude.**
+Approximate by design — transparent, fast, dependency-light, CI-gateable — with
+documented false-positives (see *How to read the scores*). Every rule is
+inspectable YAML, not an opaque judge. An LLM-judge detector is a possible future
+addition.
+
+**Single run — is it reproducible?**
+One committed run per model; LLM output is stochastic, so re-runs vary. Reproduce
+with `bash benchmark/run.sh`. Multi-sample averaging is on the roadmap. Scores are
+labelled *indicative*, never exact.
+
+**Isn't the bare scaffold a strawman?**
+Yes, intentionally. The reference agent has a guardrail prompt, raw tools, and
+nothing else. The tool's job is to measure the *delta* a real guardrail buys you —
+wrap your defenses around the model and re-run.
+
+**How is this different from garak / promptfoo?**
+Those are excellent, heavier tools. This one is deliberately tiny: offline,
+free-local-model, honestly-scored, one-command, agent-agnostic. Complementary,
+not a replacement.
+
+---
+
 ## Add your own agent
 
 Implement one method. See [`docs/adding-an-adapter.md`](docs/adding-an-adapter.md)
